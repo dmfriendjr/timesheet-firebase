@@ -18,10 +18,10 @@ $('#employeeAddButton').on('click', (event) => {
 	console.log('testing');
 
 	let newEmployee = {
-		email:  $('#emailInput').val(),
-		role: $('#roleInput').val(),
+		name:  $('#nameInput').val(),
+		position: $('#roleInput').val(),
 		startDate: $('#dateInput').val(),
-		rate: $('#rateInput').val()
+		wage: $('#rateInput').val()
 
 	}
 
@@ -29,3 +29,28 @@ $('#employeeAddButton').on('click', (event) => {
 
 	console.log(newEmployee)
 });
+
+
+database.ref().on('child_added', function(snapshot){
+	console.log(snapshot.val());
+	let row = $('<tr>');
+
+	for (var key in snapshot.val()) {
+		if (snapshot.val().hasOwnProperty(key)) {
+			console.log(snapshot.val()[key]);
+			let dataElement = $('<td>');
+			dataElement.text(snapshot.val()[key]);
+			row.append(dataElement);
+		}
+	}
+
+	$("#employee-table").append(row);
+	console.log(row);
+
+
+})
+
+
+
+
+
